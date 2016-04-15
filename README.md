@@ -28,6 +28,8 @@ http://www.rcgroups.com/forums/showthread.php?t=2512604 _H8 thread_
 
 http://www.rcgroups.com/forums/showthread.php?t=2634611#post34381034 _CG023 thread_
 
+[[https://github.com/silver13/d1/blob/master/img/d1-board-top.png|alt=d1top]]
+
 ###History:
 
 
