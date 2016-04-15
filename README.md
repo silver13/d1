@@ -24,7 +24,9 @@ Current options are stock cg023 transmitter or H8 mini transmitter / devo. I rec
 
 ###Installation and Support
 Currently this port is covered by the H8 thread on rcgroups. Flashing is similar, except STM support is added using the pack installer.
-http://www.rcgroups.com/forums/showthread.php?t=2512604
+http://www.rcgroups.com/forums/showthread.php?t=2512604 _H8 thread_
+
+http://www.rcgroups.com/forums/showthread.php?t=2634611#post34381034 _CG023 thread_
 
 ###History:
 
