@@ -167,7 +167,7 @@
 // #define NOMOTORS
 
 // throttle direct to motors for thrust measure
-#define MOTORS_TO_THROTTLE
+//#define MOTORS_TO_THROTTLE
 
 // loop time in uS
 // this affects soft gyro lpf frequency if used
@@ -182,7 +182,7 @@
 //#define INVERT_YAW_PID
 
 // debug things ( debug struct and other)
-#define DEBUG
+//#define DEBUG
 
 // rxdebug structure
 //#define RXDEBUG
