@@ -30,7 +30,7 @@ http://www.rcgroups.com/forums/showthread.php?t=2634611#post34381034 _CG023 thre
 
 https://github.com/silver13/d1/blob/master/img/d1-board-bottom.jpg
 
-![Board image](/images/img/d1-board-bottom.jpg)
+![Board image](/img/d1-board-bottom.jpg)
 
 ###History:
 
