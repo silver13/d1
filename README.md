@@ -23,7 +23,7 @@ Current options are stock cg023 transmitter or H8 mini transmitter / devo. I rec
  * acro only version can be compiled by enabling respective setting in config.h
 
 ###Installation and Support
-Currently this port is covered by the H8 thread on rcgroups. Flashing is similar, except STM support is added using the pack installer. The programming port needs 4 wires ( 3.3V ). Battery warning may be incorrect while flashing.
+Currently this port is covered by the H8 thread on rcgroups. Flashing is similar, except STM support is added using the pack installer. The programming port needs 4 wires ( 3.3V ). Low battery warning may be incorrect while powered via st-link.
 http://www.rcgroups.com/forums/showthread.php?t=2512604 _H8 thread_
 
 http://www.rcgroups.com/forums/showthread.php?t=2634611#post34381034 _CG023 thread_
