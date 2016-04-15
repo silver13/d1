@@ -5,7 +5,7 @@ _currently waiting for new board_
 
 ###notes
 * acro only , level mode not functional
-* protocols bayang (H8) and CH023
+* protocols bayang (H8) and CG023
 * programming requires vcc (3.3) wire.
 
 ###Compiling:
