@@ -1,5 +1,5 @@
 DH Drone D1 acro firmware
-work in progress
+work in progress - was working but have not flown last version
 
 _currently waiting for new board_
 
