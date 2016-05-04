@@ -5,7 +5,7 @@ work in progress
 * acro only , level mode not functional
 * programming requires vcc (3.3) wire.
 * board may need power cycle after initial erase
-* I now use a diode (1n4148) to drop voltage from 3.3V. I programmed the quad without it a number of times.
+* I now use a diode (1n4148) to drop voltage from 3.3V. I programmed the quad without it a number of times. ymmv
 
 ###Compiling:
 Compile using MDK-ARM toolchain aka Keil uVision. A special version is available for stm32F0xx devices ( full free version ), but it's not necessary since the 32K limit of the free version is above the cpu's 16K. STM32 support may need to be installed using the "pack installer" 
