@@ -57,7 +57,6 @@ extern float looptime;
 extern char auxchange[AUXNUMBER];
 extern char aux[AUXNUMBER];
 
-float motorfilter( float motorin ,int number);
 
 extern float apid(int x);
 
@@ -325,5 +324,36 @@ float motorfilter( float motorin ,int number)
 }
 
 
+float clip_feedforward[4];
+// clip feedforward adds the amount of thrust exceeding 1.0 ( max) 
+// to the next iteration(s) of the loop
+// so samples 0.5 , 1.5 , 0.4 would transform into 0.5 , 1.0 , 0.9;
+
+float clip_ff(float motorin, int number)
+{
+
+	if (motorin > 1.0f)
+	  {
+		  clip_feedforward[number] += (motorin - 1.0f);
+		  //cap feedforward to prevent windup 
+		  if (clip_feedforward[number] > .5f)
+			  clip_feedforward[number] = .5f;
+	  }
+	else if (clip_feedforward[number] > 0)
+	  {
+		  float difference = 1.0f - motorin;
+		  motorin = motorin + clip_feedforward[number];
+		  if (motorin > 1.0f)
+		    {
+			    clip_feedforward[number] -= difference;
+			    if (clip_feedforward[number] < 0)
+				    clip_feedforward[number] = 0;
+		    }
+		  else
+			  clip_feedforward[number] = 0;
+
+	  }
+	return motorin;
+}
 
 

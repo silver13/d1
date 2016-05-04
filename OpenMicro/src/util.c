@@ -27,14 +27,15 @@ THE SOFTWARE.
 #include "util.h"
 #include "drv_time.h"
 
+
 // calculates the coefficient for lpf filter, times in the same units
-float lpfcalc( float sampleperiod , float filtertime)
-{
-	if ( sampleperiod <= 0 ) return 0;
-  if ( filtertime <= 0 ) return 1;
-   float ga = expf(-1.0f/( (1.0f/ sampleperiod) * (filtertime) ));
-	if (ga > 1) ga = 1;
-	return ga;
+float lpfcalc(float sampleperiod, float filtertime) {
+float ga = 1.0f - sampleperiod / filtertime;
+if (ga > 1.0f)
+	ga = 1.0f;
+if (ga < 0.0f)
+	ga = 0.0f;
+return ga;
 }
 
 
@@ -121,3 +122,15 @@ void limit180(float *x)
 	while (*x > 180)
 		*x -= 360;
 }
+
+
+#include <inttypes.h>
+uint32_t seed = 7;
+uint32_t random( void)
+{
+  seed ^= seed << 13;
+  seed ^= seed >> 17;
+  seed ^= seed << 5;
+  return seed;
+}
+

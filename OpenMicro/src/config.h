@@ -6,8 +6,8 @@
 
 // rate in deg/sec
 // for acro mode
-#define MAX_RATE 720.0
-#define MAX_RATEYAW 720.0
+#define MAX_RATE 360.0
+#define MAX_RATEYAW 360.0
 
 // max angle for level mode
 #define MAX_ANGLE_HI 55.0f
@@ -107,6 +107,8 @@
 // hanning 3 sample fir filter
 #define MOTOR_FILTER
 
+// clip feedforward attempts to resolve issues that occur near full throttle
+#define CLIP_FF
 
 // pwm frequency for motor control
 // a higher frequency makes the motors more linear
@@ -115,25 +117,27 @@
 
 // throttle angle compensation in level mode
 // comment out to disable
-#define AUTO_THROTTLE
+//#define AUTO_THROTTLE
 
 // build acro only firmware
 // removes the distraction of level mode for learning
-//#define ACRO_ONLY
+#define ACRO_ONLY
 
 // Radio protocol selection
 // select only one
 //#define RX_CG023_PROTOCOL
 //#define RX_BAYANG_PROTOCOL
 #define RX_BAYANG_PROTOCOL_PLUS
+//#define RX_H7_PROTOCOL
+//#define RX_CX10BLUE_PROTOCOL
 
 // mode 1 to mode 3 conversion
 // cg023 protocol
 //#define RX_CG023_SWAP_YAWROLL
 
 // Flash saving features
-//#define DISABLE_HEADLESS
-//#define DISABLE_FLIP_SEQUENCER
+#define DISABLE_HEADLESS
+#define DISABLE_FLIP_SEQUENCER
 
 
 
@@ -186,9 +190,6 @@
 
 // rxdebug structure
 //#define RXDEBUG
-
-
-
 
 // enable motors if pitch / roll controls off center (at zero throttle)
 // possible values: 0 / 1

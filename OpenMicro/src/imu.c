@@ -9,7 +9,7 @@
 
 #include "util.h"
 #include "sixaxis.h"
-#include "debug.h"
+#include "config.h"
 
 #include <stdlib.h>
 
@@ -18,9 +18,8 @@
 //#define ARM_MATH_CM3
 //#include <arm_math.h>
 
-extern debug_type debug;
 
-#define ACC_1G 1875.0
+#define ACC_1G 2048.0f
 
 // disable drift correction ( for testing)
 #define DISABLE_ACC 0
@@ -28,11 +27,11 @@ extern debug_type debug;
 // filter time in seconds
 // time to correct gyro readings using the accelerometer
 // 1-4 are generally good
-#define FILTERTIME 3.0
+#define FILTERTIME 2.0
 
 // accel magnitude limits for drift correction
-#define ACC_MIN 0.5f
-#define ACC_MAX 1.5f
+#define ACC_MIN 0.7f
+#define ACC_MAX 1.3f
 
 // rotation matrix method
 // small angle approx = fast, somewhat more inaccurate
@@ -92,7 +91,27 @@ void imu_init(void)
 	  }
 }
 
+// from http://en.wikipedia.org/wiki/Fast_inverse_square_root
+// originally from quake3 code
 
+float Q_rsqrt( float number )
+{
+
+	long i;
+	float x2, y;
+	const float threehalfs = 1.5F;
+
+	x2 = number * 0.5F;
+	y  = number;
+	i  = * ( long * ) &y;                       
+	i  = 0x5f3759df - ( i >> 1 );               
+	y  = * ( float * ) &i;
+	y  = y * ( threehalfs - ( x2 * y * y ) );   // 1st iteration
+	y  = y * ( threehalfs - ( x2 * y * y ) );   // 2nd iteration, this can be removed
+//	y  = y * ( threehalfs - ( x2 * y * y ) );   // 3nd iteration, this can be removed
+	
+	return y;
+}
 
 
 void vectorcopy(float *vector1, float *vector2);
@@ -108,7 +127,7 @@ float calcmagnitude(float vector[3])
 	  {
 		  accmag += vector[axis] * vector[axis];
 	  }
-	accmag = sqrtf(accmag);
+	accmag = 1.0f/Q_rsqrt(accmag);
 	return accmag;
 }
 
@@ -120,8 +139,6 @@ void vectorcopy(float *vector1, float *vector2)
 		  vector1[axis] = vector2[axis];
 	  }
 }
-
-float normal = ACC_1G;
 
 
 void imu_calc(void)
@@ -142,7 +159,7 @@ void imu_calc(void)
 		deltatime = 1;
 	if (deltatime > 20000)
 		deltatime = 20000;
-	deltatime = deltatime * 1e-6;	// uS to seconds
+	deltatime = deltatime * 1e-6f;	// uS to seconds
 
 
 // remove bias
@@ -217,23 +234,21 @@ void imu_calc(void)
 
 
 // calc acc mag
-	float accmag = 0;
+	float accmag;
 
 	accmag = calcmagnitude(&accel[0]);
-debug.accmag = accmag;
-	// normalize acc
-	for (int axis = 0; axis < 3; axis++)
-	  {
-		  accel[axis] = accel[axis] / (accmag / normal);
-	  }
-
 		
 	static unsigned int count = 0;
 
 	if ((accmag > ACC_MIN * ACC_1G) && (accmag < ACC_MAX * ACC_1G) && !DISABLE_ACC)
-	  {
+	  {	
 		  if (count >= 3 || 1)	//
 		    {
+						// normalize acc
+					for (int axis = 0; axis < 3; axis++)
+					{
+						accel[axis] = accel[axis] * ( ACC_1G / accmag);
+					}
 			    float filtcoeff = lpfcalc(deltatime, FILTERTIME);
 			    for (int x = 0; x < 3; x++)
 			      {
@@ -243,9 +258,11 @@ debug.accmag = accmag;
 		  count++;
 	  }
 	else
-	  {			// acc mag out of bounds
+	  {			
+			// acc mag out of bounds
 		  count = 0;
-		  if (rand() % 20 == 5)
+			/*
+		  if ( gettime() % 20 == 5)
 		    {
 			    float mag = 0;
 			    mag = calcmagnitude(&EstG[0]);
@@ -254,9 +271,10 @@ debug.accmag = accmag;
 
 			    for (int x = 0; x < 3; x++)
 			      {
-				      EstG[x] = EstG[x] / (mag / normal);
+				      EstG[x] = EstG[x] * ( ACC_1G / mag);
 			      }
 		    }
+			*/
 	  }
 
 	vectorcopy(&GEstG[0], &EstG[0]);
@@ -285,7 +303,7 @@ float atan2approx(float y, float x)
 {
 
 	if (x == 0)
-		x = 123e-15;
+		x = 123e-15f;
 	float phi = 0;
 	float dphi;
 	float t;
@@ -294,12 +312,11 @@ float atan2approx(float y, float x)
 
 	t = (y / x);
 	// atan function for 0 - 1 interval
-	dphi = M_PI / 4 * t - t * ((t) - 1) * (0.2447 + 0.0663 * (t));
-
+	dphi = t*( ( M_PI/4 + 0.2447f ) + t *( ( -0.2447f + 0.0663f ) + t*( - 0.0663f)) );
 	phi *= M_PI / 4;
 	dphi = phi + dphi;
-	if (dphi > M_PI)
+	if (dphi > (float) M_PI)
 		dphi -= 2 * M_PI;
-	return 57.29577951 * dphi;
+	return RADTODEG * dphi;
 }
 

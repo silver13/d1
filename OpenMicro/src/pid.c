@@ -41,10 +41,10 @@ THE SOFTWARE.
 
 
 // Kp											ROLL       PITCH     YAW
-float pidkp[PIDNUMBER] = {8.0e-2 , 8.0e-2  , 10e-1 }; 
+float pidkp[PIDNUMBER] = {6.0e-2 , 6.0e-2  , 10e-1 }; 
 
 // Ki											ROLL       PITCH     YAW
-float pidki[PIDNUMBER] = { 6e-1  , 6e-1 , 5e-1 };	
+float pidki[PIDNUMBER] = { 2e-1  , 2e-1 , 5e-1 };	
 
 // Kd											ROLL       PITCH     YAW
 float pidkd[PIDNUMBER] = { 5.0e-1 , 5.0e-1  , 5.0e-1 };	
@@ -52,11 +52,7 @@ float pidkd[PIDNUMBER] = { 5.0e-1 , 5.0e-1  , 5.0e-1 };
 // "setpoint weighting" 0.0 - 1.0 where 0.0 = normal pid
 float b[3] = { 0.0 , 0.0 , 0.0};
 
-/*
-float pidkp[PIDNUMBER] = { 7.0e-2 , 7.0e-2 , 5e-1 };
-float pidki[PIDNUMBER] = { 2e-1 , 2e-1 , 5e-1 };
-float pidkd[PIDNUMBER] = { 5.0e-1 , 5.0e-1 , 5.0e-1 }; 
-*/
+
 
 // output limit			
 const float outlimit[PIDNUMBER] = { 0.5 , 0.5 , 0.4 };
@@ -178,12 +174,8 @@ float pid(int x )
 					lastratexx[x][1] = lastratexx[x][0];
 					lastratexx[x][0] = gyro[x];
 			  #endif
-				
+
 				  limitf(  &pidoutput[x] , outlimit[x]);
-
-				
-
-
 
 return pidoutput[x];		 		
 }

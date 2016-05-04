@@ -68,7 +68,6 @@ void delay(uint32_t data)
 	while (count--);
 }
 
-
 void SysTick_Handler(void)
 {
 
