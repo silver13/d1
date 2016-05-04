@@ -1,13 +1,11 @@
 DH Drone D1 acro firmware
-work in progress - was working but have not flown last version
-
-_currently waiting for new board_
+work in progress
 
 ###notes
 * acro only , level mode not functional
-* protocols bayang (H8) and CG023
 * programming requires vcc (3.3) wire.
 * board may need power cycle after initial erase
+* I now use a diode (1n4148) to drop voltage from 3.3V. I programmed the quad without it a number of times.
 
 ###Compiling:
 Compile using MDK-ARM toolchain aka Keil uVision. A special version is available for stm32F0xx devices ( full free version ), but it's not necessary since the 32K limit of the free version is above the cpu's 16K. STM32 support may need to be installed using the "pack installer" 
@@ -39,6 +37,8 @@ https://github.com/silver13/d1/blob/master/img/d1-board-top.jpg
 ![Board image](/img/d1-board-bottom.jpg)
 
 ![Board image](/img/d1-board-top.jpg)
+
+![programming](/img/sch1.jpg)
 
 
 
