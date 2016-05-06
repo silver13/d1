@@ -14,7 +14,7 @@ Please check board images are similar before flashing, 2 variations exist
 Compile using MDK-ARM toolchain aka Keil uVision. A special version is available for stm32F0xx devices ( full free version ), but it's not necessary since the 32K limit of the free version is above the cpu's 16K. STM32 support may need to be installed using the "pack installer" 
 
 ###Radio protocol:
-Options of bayang ( H8 ) bayang plus ( made up, sends pids to quad from tx ) cg023, CX-10 blue ( original protocol of this quad) and H7
+Options of bayang ( H8 ) bayang plus ( made up, sends pids to quad from tx ) cg023, CX-10 blue ( original protocol of this quad) and H7.
 Bayang plus is backwards compatible with bayang protocol. Note, currently set to bayang default, not cx-10.
 
 
