@@ -77,7 +77,7 @@ void control( void)
 
 	// make local copy
 	float rxcopy[4];	
-	for ( int i = 0 ; i <4 ; i++)
+	for ( int i = 0 ; i < 4 ; i++)
 	{
 		rxcopy[i] = rx[i];
 	}
@@ -257,28 +257,35 @@ pidoutput[2] = -pidoutput[2];
 // we invert again cause it's used by the pid internally (for limit)
 pidoutput[2] = -pidoutput[2];			
 #endif
-					
+	
+				
 
-thrsum = 0;			
+thrsum = 0;		
+				
 		for ( int i = 0 ; i <= 3 ; i++)
 		{			
 		#ifdef MOTOR_FILTER		
 		mix[i] = motorfilter(  mix[i] , i);
-		#endif
+		#endif		
+		#ifdef CLIP_FF
+		mix[i] = clip_ff(mix[i], i);
+		#endif	
 		#ifndef NOMOTORS
 		#ifndef MOTORS_TO_THROTTLE
+		//normal mode
 		pwm_set( i ,motormap( mix[i] ) );
 		#else
+		// test mode
 		pwm_set( i , throttle );
 		#endif
 		#else
+		// no motors mode ( anti-optimization)
 		tempx[i] = motormap( mix[i] );
 		#endif
 		if ( mix[i] < 0 ) mix[i] = 0;
 		if ( mix[i] > 1 ) mix[i] = 1;
 		thrsum+= mix[i];
 		}	
-	
 		thrsum = thrsum / 4;
 		
 	}// end motors on

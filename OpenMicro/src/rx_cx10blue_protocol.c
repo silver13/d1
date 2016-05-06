@@ -133,19 +133,39 @@ static int decodepacket( void)
 	if ( rxdata[0] == 0x55 )
 	{
 		rx[0] = -cx10scale(9); // aileron
-		rx[1] = -cx10scale(11) ; // elev
+		rx[1] = -cx10scale(11) ; // elev		
+		rx[2] = cx10scale(15) ; // yaw
 		rx[3] = (cx10scale(13) + 1.0f)*0.5f ; // throttle
-		rx[2] = cx10scale(15) ; // throttle
-				
+		
 		#ifndef DISABLE_EXPO
 			rx[0] = rcexpo ( rx[0] , EXPO_XY );
 			rx[1] = rcexpo ( rx[1] , EXPO_XY ); 
 			rx[2] = rcexpo ( rx[2] , EXPO_YAW ); 	
 		#endif
 
-    aux[0] = (rxdata[16] & 0x10)?1:0;
+		if  (rxdata[17] & 0x01) 
+		{// medium rates
+			for ( int i = 0 ; i <3; i++)
+			{
+				rx[i] = rx[i] * (float) 0.6f;
+			}
+		}
+		else if  (rxdata[17] & 0x02) 
+		{// max rates
+		
+		}
+		else
+		{// rates low
+			for ( int i = 0 ; i <3; i++)
+			{
+				rx[i] = rx[i] * (float) 0.3f;
+			}
+		}
+		
+		
+    aux[0] = (rxdata[16] & 0x10)?1:0; // flip flag
 			
-	  aux[2] = (rxdata[17] & 0x01)?1:0; // rates mid
+	  aux[2] = (rxdata[17] & 0x02)?1:0; // rates max
 		
 		for ( int i = 0 ; i < AUXNUMBER - 2 ; i++)
 		{

@@ -97,9 +97,9 @@
 // 5 - off always ( all protocols)
 #define HEADLESSMODE 5
 
-#define LEVELMODE 2
+#define LEVELMODE 5
 
-#define STARTFLIP 0
+#define STARTFLIP 5
 
 
 
@@ -108,7 +108,7 @@
 #define MOTOR_FILTER
 
 // clip feedforward attempts to resolve issues that occur near full throttle
-//#define CLIP_FF_FIX_ME
+//#define CLIP_FF
 
 // pwm frequency for motor control
 // a higher frequency makes the motors more linear
