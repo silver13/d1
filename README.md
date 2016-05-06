@@ -1,5 +1,5 @@
 DH Drone D1 acro firmware
-work in progress
+*acro only*
 
 ###notes
 * acro only , level mode not functional
@@ -11,19 +11,19 @@ work in progress
 Compile using MDK-ARM toolchain aka Keil uVision. A special version is available for stm32F0xx devices ( full free version ), but it's not necessary since the 32K limit of the free version is above the cpu's 16K. STM32 support may need to be installed using the "pack installer" 
 
 ###Radio protocol:
-Current options are stock cg023 transmitter or H8 mini transmitter / devo. I recommend using the H8 protocol with Devo tx, as the cg protocol only allows approx 7 bits accuracy. Protocol is by default stock CG023 protocol.
+Options of bayang ( H8 ) bayang plus ( made up, sends pids to quad from tx ) cg023, CX-10 blue ( original protocol of this quad) and H7
+Bayang plus is backwards compatible with bayang protocol. Note, currently set to bayang default, not cx-10.
 
 
 ###Differences from H8 version:
- * rates have been integrated into protocol file, and depend on protocol abilities
+ * rates have been integrated into protocol files, and depend on protocol abilities
  * the quadcopter rate ( in deg/sec) is no longer multiplied by 2, so it's the actual rate with devo.
- * linux version compiles above 16K, so it's not included.
- * acro only version can be compiled by enabling respective setting in config.h
+
 
 ###Installation and Support
 Currently this port is covered by the H8 thread on rcgroups. Flashing is similar, except STM support is added using the pack installer. The programming port needs 4 wires ( 3.3V ). Low battery warning may be incorrect while powered via st-link.
 http://www.rcgroups.com/forums/showthread.php?t=2512604 _H8 thread_
-
+or
 http://www.rcgroups.com/forums/showthread.php?t=2634611#post34381034 _CG023 thread_
 
 ###History:
