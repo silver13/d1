@@ -29,6 +29,10 @@ http://www.rcgroups.com/forums/showthread.php?t=2512604 _H8 thread_
 or
 http://www.rcgroups.com/forums/showthread.php?t=2634611#post34381034 _CG023 thread_
 
+
+###Wiki
+http://sirdomsen.diskstation.me/dokuwiki/doku.php?id=start
+
 ###History:
 
 ###Board images:
